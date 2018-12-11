@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import './PlayerSubmissionForm.css';
+import PropTypes, from 'prop-types';
 
 class PlayerSubmissionForm extends Component {
 
   constructor(props) {
     super(props);
+    this.state ={
+      adj1: '',
+      adj2: '',
+      adv: '',
+      noun1: '',
+      noun2: '',
+      verb: '',
+    }
   }
 
 
@@ -13,7 +22,7 @@ class PlayerSubmissionForm extends Component {
 
     return (
       <div className="PlayerSubmissionForm">
-        <h3>Player Submission Form for Player #{  }</h3>
+        <h3>Player Submission Form for Player #{ this.props.index }</h3>
 
         <form className="PlayerSubmissionForm__form" >
 
@@ -58,5 +67,12 @@ class PlayerSubmissionForm extends Component {
     );
   }
 }
+
+PlayerSubmissionForm.propTypes = {
+  fields: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
+  isSubmitted: PropTypes.bool,
+  handleSubmitCallback: PropTypes.func,
+};
 
 export default PlayerSubmissionForm;
