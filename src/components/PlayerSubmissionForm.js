@@ -7,6 +7,8 @@ class PlayerSubmissionForm extends Component {
     super(props);
   }
 
+
+
   render() {
 
     return (
@@ -20,9 +22,31 @@ class PlayerSubmissionForm extends Component {
             {
               // Put your form inputs here... We've put in one below as an example
             }
+            <form onSubmit={this.handleSubmitCallback} >
             <input
               placeholder="hm..."
-              type="text" />
+              type="text"
+
+
+            />
+            <input
+                placeholder="hm..."
+                type="text"
+
+            />
+            <input
+            />
+            <input
+            />
+            <input
+            />
+            <input
+            />
+            <input
+
+            />
+            </form>
+
 
           </div>
 
