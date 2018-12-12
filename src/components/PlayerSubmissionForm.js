@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './PlayerSubmissionForm.css';
-import PropTypes, from 'prop-types';
+import PropTypes from 'prop-types';
 
 class PlayerSubmissionForm extends Component {
 
@@ -16,6 +16,37 @@ class PlayerSubmissionForm extends Component {
     }
   }
 
+  handleChanges = (e) => {
+    const updateState = {};
+    const fieldName = e.target.name;
+    updateState[fieldName] = e.target.value;
+    this.setState(updateState);
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { adj1, adj2, noun1, noun2, adv, verb} = this.state;
+    const newLine = `The ${adj1} ${noun1} ${adv} ${verb} the ${adj2} ${noun2}.`;
+    this.props.handleSubmitLineCallback(newLine);
+  };
+
+  generateFormFields = () => {
+    return this.props.fields.map((field, i) => {
+      if (field.key) {
+        return <input
+            key={i}
+            name={field.key}
+            placeholder={field}
+            value={this.state[field.key]}
+            type="text"
+            onChange={this.handleChanges}
+            className={this.state[field.key] === '' ? "PlayerSubmissionForm__input--invalid" : "PlayerSubmissionForm__input"}
+        />
+      } else {
+        return field;
+      }
+    });
+  }
 
 
   render() {
@@ -24,38 +55,11 @@ class PlayerSubmissionForm extends Component {
       <div className="PlayerSubmissionForm">
         <h3>Player Submission Form for Player #{ this.props.index }</h3>
 
-        <form className="PlayerSubmissionForm__form" >
+        <form className="PlayerSubmissionForm__form" onSubmit={this.handleSubmit} >
 
           <div className="PlayerSubmissionForm__poem-inputs">
 
-            {
-              // Put your form inputs here... We've put in one below as an example
-            }
-            <form onSubmit={this.handleSubmitCallback} >
-            <input
-              placeholder="hm..."
-              type="text"
-
-
-            />
-            <input
-                placeholder="hm..."
-                type="text"
-
-            />
-            <input
-            />
-            <input
-            />
-            <input
-            />
-            <input
-            />
-            <input
-
-            />
-            </form>
-
+            { this.generateFormFields() }
 
           </div>
 
@@ -72,7 +76,7 @@ PlayerSubmissionForm.propTypes = {
   fields: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
   isSubmitted: PropTypes.bool,
-  handleSubmitCallback: PropTypes.func,
+  handleSubmitLineCallback: PropTypes.func,
 };
 
 export default PlayerSubmissionForm;

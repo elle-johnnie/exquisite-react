@@ -15,7 +15,7 @@ const FinalPoem = (props) => {
             type="button"
             value="We are finished: Reveal the Poem"
             className="FinalPoem__reveal-btn"
-            onSubmit={this.}
+            //onSubmit={this.handleSubmitFinalCallback}
         />
       </div>
     </div>
