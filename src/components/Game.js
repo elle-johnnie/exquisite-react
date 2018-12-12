@@ -16,17 +16,20 @@ class Game extends Component {
       lastLine: '',
     }
   }
+
   handleSubmitLine = (newLine) => {
     const submissions = this.state.submissions;
     submissions.push(newLine);
     this.setState({
+      index: this.state.index + 1,
       submissions,
-      lastLine: newLine
+      lastLine: newLine,
     });
-  this.setState ({
-    index: this.state.index + 1
-  });
-}
+  };
+
+  handleSubmitFinal = () => {
+    this.setState ({isSubmitted: true })
+  };
 
 
   render() {
@@ -50,20 +53,25 @@ class Game extends Component {
         <p className="Game__format-example">
           { exampleFormat }
         </p>
-
+        {(this.state.submissions.length > 0 && !this.state.isSubmitted) &&
         <RecentSubmission
             lastLine={this.state.lastLine}
-            isSubmitted={this.state.isSubmitted}/>
+            />}
 
+        {!this.state.isSubmitted &&
         <PlayerSubmissionForm
             fields={FIELDS}
             index={ this.state.index }
             handleSubmitLineCallback={ this.handleSubmitLine }
-            isSubmitted={ this.state.isSubmitted }/>
+            />}
+
 
         <FinalPoem
             poem={this.state.submissions}
-            isSubmitted={this.state.isSubmitted}/>
+            //lastLine={this.state.lastLine}
+            isSubmitted={this.state.isSubmitted}
+            handleSubmitFinalCallback={this.handleSubmitFinal}
+        />
 
       </div>
     );

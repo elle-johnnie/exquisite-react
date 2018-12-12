@@ -28,6 +28,14 @@ class PlayerSubmissionForm extends Component {
     const { adj1, adj2, noun1, noun2, adv, verb} = this.state;
     const newLine = `The ${adj1} ${noun1} ${adv} ${verb} the ${adj2} ${noun2}.`;
     this.props.handleSubmitLineCallback(newLine);
+    this.setState ({
+      adj1: '',
+      adj2: '',
+      adv: '',
+      noun1: '',
+      noun2: '',
+      verb: '',
+    })
   };
 
   generateFormFields = () => {
@@ -36,7 +44,7 @@ class PlayerSubmissionForm extends Component {
         return <input
             key={i}
             name={field.key}
-            placeholder={field}
+            placeholder={field.placeholder}
             value={this.state[field.key]}
             type="text"
             onChange={this.handleChanges}
@@ -46,7 +54,7 @@ class PlayerSubmissionForm extends Component {
         return field;
       }
     });
-  }
+  };
 
 
   render() {
@@ -64,7 +72,10 @@ class PlayerSubmissionForm extends Component {
           </div>
 
           <div className="PlayerSubmissionForm__submit">
-            <input type="submit" value="Submit Line" className="PlayerSubmissionForm__submit-btn" />
+            <input type="submit"
+                   value="Submit Line"
+                   className="PlayerSubmissionForm__submit-btn"
+                   onSubmit={this.handleSubmit}/>
           </div>
         </form>
       </div>
@@ -75,7 +86,6 @@ class PlayerSubmissionForm extends Component {
 PlayerSubmissionForm.propTypes = {
   fields: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
-  isSubmitted: PropTypes.bool,
   handleSubmitLineCallback: PropTypes.func,
 };
 
